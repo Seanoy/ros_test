@@ -1,0 +1,29 @@
+<launch>
+  <!-- 定义速度参数 -->
+  <arg name="turtle1_speed" default="1.0"/>
+  <arg name="turtle2_speed" default="1.5"/>
+
+  <!-- 只启动一个 turtlesim_node，不要用 group 包裹它 -->
+  <node pkg="turtlesim" type="turtlesim_node" name="turtlesim" output="screen"/>
+
+  <!-- 生成第二只乌龟（第一只 turtlesim 默认就有一只叫 turtle1） -->
+  <node pkg="rosservice" type="rosservice" name="spawn_turtle2"
+        args="call --wait /spawn 8.0 5.0 0.0 turtle2"/>
+
+  <!-- 第一只乌龟（默认 turtle1）运动：前进 + 顺时针转 -->
+  <group ns="turtle1">
+    <node pkg="rostopic" type="rostopic" name="move_turtle1"
+          args="pub -r 10 /turtle1/cmd_vel geometry_msgs/Twist
+                '{linear: {x: $(arg turtle1_speed)}, angular: {z: 1.0}}'"
+          output="screen"/>
+  </group>
+
+  <!-- 第二只乌龟（turtle2）运动：前进 + 逆时针转 -->
+  <group ns="turtle2">
+    <node pkg="rostopic" type="rostopic" name="move_turtle2"
+          args="pub -r 10 /turtle2/cmd_vel geometry_msgs/Twist
+                '{linear: {x: $(arg turtle2_speed)}, angular: {z: -1.0}}'"
+          output="screen"/>
+  </group>
+
+</launch>
