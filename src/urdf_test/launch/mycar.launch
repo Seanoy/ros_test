@@ -1,0 +1,9 @@
+<launch>
+    <param name="robot_description" textfile="$(find urdf_test)/urdf/mycar.urdf" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find urdf_test)/config/rviz/show_mycar.rviz" />\
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+    
+</launch>

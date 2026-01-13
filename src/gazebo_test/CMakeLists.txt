@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(sean_ros)
+project(gazebo_test)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,14 +8,12 @@ project(sean_ros)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  gazebo_plugins
+  gazebo_ros
+  gazebo_ros_control
   roscpp
-  rospy
-  std_msgs
-  tf2
-  tf2_ros
-  tf2_geometry_msgs
-  geometry_msgs
-  message_generation
+  urdf
+  xacro
 )
 
 ## System dependencies are found with CMake's conventions
@@ -52,16 +50,18 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  Person.msg
-)
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  AddInts.srv
-)
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -71,10 +71,10 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,8 +107,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES sean_ros
- CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+#  LIBRARIES gazebo_test
+#  CATKIN_DEPENDS gazebo_plugins gazebo_ros gazebo_ros_control roscpp urdf xacro
 #  DEPENDS system_lib
 )
 
@@ -125,7 +125,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/sean_ros.cpp
+#   src/${PROJECT_NAME}/gazebo_test.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -136,23 +136,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(person_listener src/customize_msg_test/person_listener.cpp)
-add_executable(person_talker src/customize_msg_test/person_talker.cpp)
-add_executable(AddInts_Server src/customize_srv_test/AddInts_Server.cpp)
-add_executable(AddInts_Client src/customize_srv_test/AddInts_Client.cpp)
-add_executable(param_get src/param_test/param_get.cpp)
-add_executable(param_set src/param_test/param_set.cpp)
-add_executable(topic_pub src/topic_test/topic_pub.cpp)
-add_executable(topic_sub src/topic_test/topic_sub.cpp)
-add_executable(service_call src/service_test/service_call.cpp)
-add_executable(static_tf_sub  src/tf_test/static_tf_sub.cpp)
-add_executable(static_tf_pub  src/tf_test/static_tf_pub.cpp)
-add_executable(dynamic_tf_sub  src/tf_test/dynamic_tf_sub.cpp)
-add_executable(dynamic_tf_pub  src/tf_test/dynamic_tf_pub.cpp)
-add_executable(multi_tf_sub  src/tf_test/multi_tf_sub.cpp)
-add_executable(turtle_pub  src/turtles_follow_test/turtle_pub.cpp)
-add_executable(turtle_sub  src/turtles_follow_test/turtle_sub.cpp)
-add_executable(turtle_spawn  src/turtles_follow_test/turtle_spawn.cpp)
+# add_executable(${PROJECT_NAME}_node src/gazebo_test_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,42 +147,11 @@ add_executable(turtle_spawn  src/turtles_follow_test/turtle_spawn.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(person_talker ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(person_listener ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(AddInts_Server ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(AddInts_Client ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(param_get ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(param_set ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(topic_pub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(topic_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(topic_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(static_tf_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(static_tf_pub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(dynamic_tf_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(dynamic_tf_pub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(multi_tf_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(turtle_pub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(turtle_sub ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(turtle_spawn ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(person_listener  ${catkin_LIBRARIES})
-target_link_libraries(person_talker  ${catkin_LIBRARIES})
-target_link_libraries(AddInts_Server  ${catkin_LIBRARIES})
-target_link_libraries(AddInts_Client  ${catkin_LIBRARIES})
-target_link_libraries(param_get  ${catkin_LIBRARIES})
-target_link_libraries(param_set  ${catkin_LIBRARIES})
-target_link_libraries(topic_pub  ${catkin_LIBRARIES})
-target_link_libraries(topic_sub  ${catkin_LIBRARIES})
-target_link_libraries(service_call  ${catkin_LIBRARIES})
-target_link_libraries(static_tf_sub  ${catkin_LIBRARIES})
-target_link_libraries(static_tf_pub  ${catkin_LIBRARIES})
-target_link_libraries(dynamic_tf_sub  ${catkin_LIBRARIES})
-target_link_libraries(dynamic_tf_pub  ${catkin_LIBRARIES})
-target_link_libraries(multi_tf_sub  ${catkin_LIBRARIES})
-target_link_libraries(turtle_pub  ${catkin_LIBRARIES})
-target_link_libraries(turtle_sub  ${catkin_LIBRARIES})
-target_link_libraries(turtle_spawn  ${catkin_LIBRARIES})
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -247,7 +200,7 @@ target_link_libraries(turtle_spawn  ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sean_ros.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_gazebo_test.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
