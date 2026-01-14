@@ -1,0 +1,8 @@
+prefix=/home/sean/ros_test/devel
+
+Name: nav_map_test
+Description: Description of nav_map_test
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
