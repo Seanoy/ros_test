@@ -39,5 +39,5 @@
 
     <!-- <node pkg="rviz" type="rviz" name="rviz" /> -->
     <!-- 可以保存 rviz 配置并后期直接使用-->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find gazebo_test)/config/rviz_config.rviz" />
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find gazebo_test)/config/rviz_config.rviz" /> -->
 </launch>

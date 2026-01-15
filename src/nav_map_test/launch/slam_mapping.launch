@@ -1,0 +1,8 @@
+<launch>
+    <!-- 启动SLAM节点 -->
+    <include file="$(find nav_map_test)/launch/slam.launch" />
+    <!-- 运行move_base节点 -->
+    <include file="$(find nav_map_test)/launch/path.launch" />
+    <!-- 运行rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find nav_map_test)/config/nav.rviz" />
+</launch>

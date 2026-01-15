@@ -1,26 +1,27 @@
 TrajectoryPlannerROS:
 
 # Robot Configuration Parameters
-  max_vel_x: 0.18
-  min_vel_x: 0.08
+  max_vel_x: 0.5 # X 方向最大线速度
+  min_vel_x: 0.1 # X 方向最小非零速度
 
-  max_vel_theta:  1.0
-  min_vel_theta: -1.0
-  min_in_place_vel_theta: 1.0
+  max_vel_theta:  1.0 # 最大角速度
+  min_vel_theta: -1.0 # 最小角速度
+  min_in_place_vel_theta: 1.0 # 原地旋转时的最小角速度
 
-  acc_lim_x: 1.0
-  acc_lim_y: 0.0
-  acc_lim_theta: 0.6
+  acc_lim_x: 1.0 # X方向 线加速度限制
+  acc_lim_y: 0.0 # Y方向 线加速度限制
+  acc_lim_theta: 0.6 # 角加速度限制
 
-# Goal Tolerance Parameters
-  xy_goal_tolerance: 0.10
-  yaw_goal_tolerance: 0.05
+# Goal Tolerance Parameters，目标公差
+  xy_goal_tolerance: 0.10 # 位置公差
+  yaw_goal_tolerance: 0.05 # 朝向公差
 
 # Differential-drive robot configuration
+# 是否是全向移动机器人
   holonomic_robot: false
 
-# Forward Simulation Parameters
-  sim_time: 0.8
-  vx_samples: 18
-  vtheta_samples: 20
-  sim_granularity: 0.05
+# Forward Simulation Parameters，前进模拟参数
+  sim_time: 0.8 # 模拟预测时间
+  vx_samples: 18 # X 方向速度采样的数量
+  vtheta_samples: 20 # 角速度采样数量
+  sim_granularity: 0.05 # 模拟轨迹时的步长
